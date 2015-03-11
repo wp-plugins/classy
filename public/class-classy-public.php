@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       http://mediacause.org
- * @since      1.0.0
+ * @since      1.1
  *
  * @package    Classy
  * @subpackage Classy/public
@@ -22,7 +22,7 @@ class Classy_Public {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1
 	 * @access   private
 	 * @var      string    $classy    The ID of this plugin.
 	 */
@@ -31,30 +31,39 @@ class Classy_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
 
 	/**
+	 * The version of this plugin.
+	 *
+	 * @since    1.1
+	 * @access   private
+	 * @var      object    $api    The current account API Object
+	 */
+	private $api;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1
 	 * @param      string    $classy       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $classy, $version ) {
 
+	public function __construct( $classy, $version ) {
 		$this->classy = $classy;
 		$this->version = $version;
-
+		$this->api = new Classy_API();
 	}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->classy, plugin_dir_url( __FILE__ ) . 'css/classy-public.css', array(), $this->version, 'all' );
@@ -63,7 +72,7 @@ class Classy_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->classy, plugin_dir_url( __FILE__ ) . 'js/classy-public.js', array( 'jquery' ), $this->version, false );
@@ -75,7 +84,7 @@ class Classy_Public {
 		add_shortcode('classy_donations', array($this, 'get_donations_func'));
 	}
 
-	// Gets Latest campaigns Created
+	// Gets Latest campaigns created
 	function get_campaigns_func($atts){
 		// Shortcode Attributes Setup
 		$a = shortcode_atts( array(
@@ -86,21 +95,9 @@ class Classy_Public {
 			'limit' => '3',
 		), $atts );
 
-		// Get Token and CID
-		$a['token'] = get_option('classy_token');
-		$a['cid'] = get_option('classy_cid');
-
 		// Build URL Parameters
 		$attrs = http_build_query($a);
-		$url = 'https://www.classy.org/api1/campaigns?' . $attrs;
-
-		// Curl it
-		$ch = curl_init(); 
-		curl_setopt($ch, CURLOPT_URL, $url); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-		$output = curl_exec($ch); 
-		$output = json_decode($output);
-		curl_close($ch);
+		$output = $this->api->campaigns($attrs);
 
 		$count = 0; 
 		if($output->status_code == "SUCCESS"){
@@ -113,7 +110,7 @@ class Classy_Public {
 						    $location = trim($campaign->address) == false ? $campaign->venue : $campaign->address;
 							$output .= '
 									<div class="single-campaign">
-										<p class="campaign-title"><a href="'. $campaign->campaign_url .'">'. $campaign->name .'</a></p>
+										<p class="campaign-title"><a href="'. $campaign->event_url .'">'. $campaign->name .'</a></p>
 										<p class="campaign-date">'. esc_attr(date_i18n('d M, Y',$date)) .'</p>
 										<p class="campaign-address">'. $location . ', ' . $campaign->city . ', ' . $campaign->state .'</p>
 									</div>';
@@ -131,6 +128,7 @@ class Classy_Public {
 		return $output;
 	}
 
+	// Get latest fundraisers
 	function get_fundraisers_func($atts){
 		// Shortcode Attributes Setup
 		$a = shortcode_atts( array(
@@ -152,21 +150,9 @@ class Classy_Public {
 			'order' => 'most_recent'
 		), $atts );
 
-		// Get Token and CID
-		$a['token'] = get_option('classy_token');
-		$a['cid'] = get_option('classy_cid');
-
 		// Build URL Parameters
 		$attrs = http_build_query($a);
-		$url = 'https://www.classy.org/api1/fundraisers?' . $attrs;
-
-		// Curl it
-		$ch = curl_init(); 
-		curl_setopt($ch, CURLOPT_URL, $url); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-		$output = curl_exec($ch); 
-		$output = json_decode($output);
-		curl_close($ch);
+		$output = $this->api->fundraisers($attrs);
 
 		if($output->status_code == "SUCCESS"){
 			$fundraisers = $output->fundraisers;
@@ -183,7 +169,6 @@ class Classy_Public {
 												<p class="fundraiser-event"><a href="'. $fundraiser->fundraiser_url .'">'. $fundraiser->event_name .'</a></p>
 											</div>
 										</div>';
-
 						}
 			$output .= '</div></div>';
 
@@ -191,6 +176,7 @@ class Classy_Public {
 		}
 	}
 
+	// Get latest donations
 	function get_donations_func($atts){
 		// Shortcode Attributes Setup
 		$a = shortcode_atts( array(
@@ -205,21 +191,9 @@ class Classy_Public {
 			'limit' => '3'
 		), $atts );
 
-		// Get Token and CID
-		$a['token'] = get_option('classy_token');
-		$a['cid'] = get_option('classy_cid');
-
 		// Build URL Parameters
 		$attrs = http_build_query($a);
-		$url = 'https://www.classy.org/api1/donations?' . $attrs;
-
-		// Curl it
-		$ch = curl_init(); 
-		curl_setopt($ch, CURLOPT_URL, $url); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-		$output = curl_exec($ch); 
-		$output = json_decode($output);
-		curl_close($ch);
+		$output = $this->api->donations($attrs);
 
 		if($output->status_code == "SUCCESS"){
 			$donations = $output->donations;

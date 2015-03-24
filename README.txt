@@ -31,6 +31,8 @@ This plugin was created using Tom McFarlin's Boilerplate WordPress Plugin templa
 
 [Classy API](http://go.stayclassy.org/hs-fs/hub/190333/file-1586506388-pdf/StayClassy_API_v1.1_FINAL_%281%29.pdf)
 
+Want a customized version for your site? Reach out to us at [MediaCause](mailto:web@mediacause.org)
+
 == Screenshots ==
 
 1. **Classy Admin** - Updated your API Token and CID in the admin panel. 

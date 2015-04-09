@@ -11,7 +11,7 @@
  * Plugin Name:       Classy
  * Plugin URI:        http://mediacause.org
  * Description:       A tool used to integrate Classy's API into easily accessible shortcodes
- * Version:           1.2
+ * Version:           1.2.1
  * Author:            Media Cause
  * Author URI:        http://mediacause.org
  * License:           GPL-2.0+

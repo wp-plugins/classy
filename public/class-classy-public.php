@@ -90,7 +90,7 @@ class Classy_Public {
 		add_shortcode('classy_donations', array($this, 'classy_get_donations_func'));
 		add_shortcode('classy_campaign_info', array($this, 'classy_get_campaign_info_func'));
 		add_shortcode('classy_fundraiser_info', array($this, 'classy_get_fundraiser_info_func'));
-		add_shortcode('classy_get_teams', array($this, 'classy_get_teams_func'));
+		add_shortcode('classy_teams', array($this, 'classy_get_teams_func'));
 		add_shortcode('classy_team_info', array($this, 'classy_get_team_info_func'));
 		add_shortcode('classy_recurring', array($this, 'classy_get_recurring_func'));
 		add_shortcode('classy_project_info', array($this, 'classy_get_project_info_func'));

@@ -18,8 +18,14 @@ This plugin integrates the Classy API via shortcodes for easy access on Wordpres
 Currently supported shortcodes/API calls:
 
 * [classy_campaigns]
-* [classy_fundraisers]
+* [classy_campaign_info]
 * [classy_donations]
+* [classy_fundraisers]
+* [classy_fundraiser_info]
+* [classy_teams]
+* [classy_team_info]
+* [classy_recurring]
+* [classy_project_info]
 
 You are able to use parameters that are available on the API as well in your shortcodes. For example:
 
@@ -30,6 +36,8 @@ This will return a list of fundraisers ordered by first name.
 This plugin was created using Tom McFarlin's Boilerplate WordPress Plugin template.
 
 [Classy API](http://go.stayclassy.org/hs-fs/hub/190333/file-1586506388-pdf/StayClassy_API_v1.1_FINAL_%281%29.pdf)
+
+Want a customized version for your site? Reach out to us at [web@mediacause.org](mailto:web@mediacause.org)
 
 == Screenshots ==
 

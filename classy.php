@@ -4,7 +4,7 @@
  * The plugin bootstrap file
  *
  * @link              http://mediacause.org
- * @since             1.2
+ * @since             1.2.1
  * @package           Classy
  *
  * @wordpress-plugin

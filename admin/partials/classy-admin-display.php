@@ -4,7 +4,7 @@
  * Provide a dashboard view for the plugin
  *
  * @link       http://mediacause.org
- * @since      1.1
+ * @since      1.2
  *
  * @package    Classy
  * @subpackage Classy/admin/partials
@@ -50,7 +50,7 @@ $activities = $classy->account_activity();
 		<div class="inside">
 			<ul>
 				<?php foreach ($activities->activity as $activity) {
-					echo '<li><a href="'. $activity->url .'" target="_blank">' . $activity->activity_string . '</a></li>';
+					echo '<li>'. $activity->activity_string . '</li>';
 				}
 				?>
 			</ul>

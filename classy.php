@@ -4,14 +4,14 @@
  * The plugin bootstrap file
  *
  * @link              http://mediacause.org
- * @since             1.2
+ * @since             1.2.1
  * @package           Classy
  *
  * @wordpress-plugin
  * Plugin Name:       Classy
  * Plugin URI:        http://mediacause.org
  * Description:       A tool used to integrate Classy's API into easily accessible shortcodes
- * Version:           1.2
+ * Version:           1.2.1
  * Author:            Media Cause
  * Author URI:        http://mediacause.org
  * License:           GPL-2.0+

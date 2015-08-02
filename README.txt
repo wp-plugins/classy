@@ -2,8 +2,8 @@
 Contributors: Asitha, alanapost
 Tags: classy,api,shortcodes
 Requires at least: 3.0.1
-Tested up to: 4.1.1
-Stable tag: 1.2
+Tested up to: 4.2.3
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,12 @@ Upload the Classy plugin to your blog, activate it, then enter your API Token an
 To get your API Token and CID, you will need to contact [Classy support](https://fundraise.tofightcancer.com/help-center). 
 
 == Changelog ==
-
+= 1.2.1 =
+* Fixed Minor Image Bugs
+= 1.2 =
+* Added new Classy admin icon
+* Added Activity Stream to Classy Admin
+* Added more shortcodes
+* Updated to new API
 = 1.0 =
 * Initial plugin which includes campaigns, fundraisers and donations.

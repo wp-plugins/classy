@@ -96,6 +96,24 @@ class Classy_Public {
 		add_shortcode('classy_project_info', array($this, 'classy_get_project_info_func'));
 	}
 
+	// Get events greater than current date
+	function expired_events_func($events){
+	    foreach ($events as $event) {
+	        $date = strtotime($event->start_date);
+	        $current_date = strtotime("now");
+	        return ($event & $date < $current_date);
+	    }
+	}
+
+	// Sort by date ASC
+	function sort_func($a, $b)
+	{
+	    $t1 = strtotime($a->start_date);
+	    $t2 = strtotime($b->start_date);
+
+	    return ($t1 - $t2);
+	}
+
 	// Gets Latest campaigns created
 	function classy_get_campaigns_func($atts){
 		// Shortcode Attributes Setup
@@ -105,6 +123,8 @@ class Classy_Public {
 			'zip' => '',
 			'within' => '',
 			'limit' => '3',
+			'current' => 'true',
+			'sort' => 'date'
 		), $atts );
 
 		// Build URL Parameters
@@ -114,6 +134,13 @@ class Classy_Public {
 		$count = 0; 
 		if($result->status_code == "SUCCESS"){
 			$campaigns = $result->campaigns;
+			if($a['current'] == "true"){
+				$campaigns = array_filter($events, "expired_events_func");
+			}
+
+			if($a['sort'] == "date"){
+				usort($events, "sort_func");
+			}
 
 			$output = '<div class="classy campaigns-container">
 								<div class="campaigns">';

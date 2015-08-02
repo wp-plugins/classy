@@ -70,7 +70,7 @@ class Classy_Admin {
 
 	public function admin_menus(){
 		if(isset($_POST['update'])){
-			$account = new Classy_Account($_POST['token'], $_POST['cid']);
+			$account = new Classy_API($_POST['token'], $_POST['cid']);
 			$account->update() ? add_action( 'admin_notices', 'valid_api_notice' ) : add_action( 'admin_notices', 'invalid_api_notice');
 		}	
 

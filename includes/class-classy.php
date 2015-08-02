@@ -69,7 +69,7 @@ class Classy {
 	public function __construct() {
 
 		$this->classy = 'classy';
-		$this->version = '1.2.1';
+		$this->version = '1.2.2';
 
 		$this->load_dependencies();
 		$this->set_locale();

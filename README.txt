@@ -35,7 +35,7 @@ This will return a list of fundraisers ordered by first name.
 
 This plugin was created using Tom McFarlin's Boilerplate WordPress Plugin template.
 
-[Classy API](mediacause.org/Classy_API.pdf)
+[Classy API](http://mediacause.org/Classy_API.pdf)
 
 Want a customized version for your site? Reach out to us at [web@mediacause.org](mailto:web@mediacause.org)
 

@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       http://mediacause.org
- * @since      1.2.2
+ * @since      1.2.3
  *
  * @package    Classy
  * @subpackage Classy/public
@@ -22,7 +22,7 @@ class Classy_Public {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 * @access   private
 	 * @var      string    $classy    The ID of this plugin.
 	 */
@@ -31,7 +31,7 @@ class Classy_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -40,7 +40,7 @@ class Classy_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 * @access   private
 	 * @var      object    $api    The current account API Object
 	 */
@@ -52,7 +52,7 @@ class Classy_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 * @param      string    $classy       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -69,7 +69,7 @@ class Classy_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->classy, plugin_dir_url( __FILE__ ) . 'css/classy-public.css', array(), $this->version, 'all' );
@@ -78,7 +78,7 @@ class Classy_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.2.2
+	 * @since    1.2.3
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->classy, plugin_dir_url( __FILE__ ) . 'js/classy-public.js', array( 'jquery' ), $this->version, false );
@@ -97,16 +97,16 @@ class Classy_Public {
 	}
 
 	// Get events greater than current date
-	function expired_events_func($events){
+	private static function expired_events_func($events){
 	    foreach ($events as $event) {
-	        $date = strtotime($event->start_date);
+	        $date = strtotime($event['start_date']);
 	        $current_date = strtotime("now");
 	        return ($event & $date < $current_date);
 	    }
 	}
 
 	// Sort by date ASC
-	function sort_func($a, $b)
+	private static function sort_func($a, $b)
 	{
 	    $t1 = strtotime($a->start_date);
 	    $t2 = strtotime($b->start_date);
@@ -135,11 +135,11 @@ class Classy_Public {
 		if($result->status_code == "SUCCESS"){
 			$campaigns = $result->campaigns;
 			if($a['current'] == "true"){
-				$campaigns = array_filter($events, "expired_events_func");
+				$campaigns = array_filter($campaigns, array(__CLASS__,'expired_events_func'));
 			}
 
 			if($a['sort'] == "date"){
-				usort($events, "sort_func");
+				usort($campaigns, array(__CLASS__,'sort_func'));
 			}
 
 			$output = '<div class="classy campaigns-container">
@@ -399,7 +399,7 @@ class Classy_Public {
 				'mid' => '',
 				'rid' => '',
 				'limit' => ''
-			));
+			), $atts);
 
 		$attrs = http_build_query($a);
 		$result = $this->api->recurring($attrs);

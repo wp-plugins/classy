@@ -3,7 +3,7 @@ Contributors: Asitha, alanapost
 Tags: classy,api,shortcodes
 Requires at least: 3.0.1
 Tested up to: 4.2.3
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,8 +34,6 @@ You are able to use parameters that are available on the API as well in your sho
 This will return a list of fundraisers ordered by first name.
 
 This plugin was created using Tom McFarlin's Boilerplate WordPress Plugin template.
-
-[Classy API](http://mediacause.org/Classy_API.pdf)
 
 Want a customized version for your site? Reach out to us at [web@mediacause.org](mailto:web@mediacause.org)
 
